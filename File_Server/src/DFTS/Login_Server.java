@@ -4,15 +4,20 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.Key;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.stream.Stream;
 
 import javax.ws.rs.Consumes;
@@ -77,11 +82,9 @@ public class Login_Server {
 
 		{
 
-			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con=DriverManager.getConnection(  
-					"jdbc:mysql://localhost:3306/fileserver","root","Prashant123!");  
+			Connection conn = FileServerDao.sqlconnect(); 
 
-			Statement stmt=con.createStatement();  
+			Statement stmt=conn.createStatement();  
 			ResultSet rs=stmt.executeQuery("select fname,usertype,token,pswd from users where encrypt_username = '" + client_username +"';");
 
 			if(rs.next())
@@ -94,6 +97,20 @@ public class Login_Server {
 					lresponse.setName(rs.getString(1));
 					lresponse.setUsertype(rs.getString(2));
 					lresponse.setToken(rs.getString(3));
+					
+					 String key1 = CryptoFunctions.getNewKey();
+					 String key2 = CryptoFunctions.getNewKey();
+					 String time = String.valueOf(System.currentTimeMillis());
+					 String myToken = lresponse.getName() + ";;" + key1 + ";;" + time;
+					
+					 lresponse.setToken(CryptoFunctions.encrypt(myToken,key2));
+					 lresponse.setKey1(key1);
+					 String query = "update users set key1 = ?, key2 = ?, token = ? where encrypt_username = '" + client_username +"';  ";
+				        PreparedStatement preparedStmt = conn.prepareStatement(query);
+				        preparedStmt.setString (1, key1);
+				        preparedStmt.setString (2, key2);
+				        preparedStmt.setString (3, lresponse.getToken());
+				        preparedStmt.execute();
 					return lresponse.getJsonString();
 				}
 
@@ -104,7 +121,7 @@ public class Login_Server {
 			lresponse.setAuthstatus("N");
 
 
-			con.close();  
+			conn.close();  
 		}
 
 		catch(Exception e)
@@ -153,10 +170,75 @@ public class Login_Server {
 
 
 	}
+	
+	@POST
+	@Consumes({"application/json"})
+	@Path("/tokenCheck")
+	public String tokenCheck(String param){
+		
+		TokenRequest tr = new TokenRequest();
+		tr = tr.getClassFromJson(param);
+		
+		String client_username = tr.getEncryptedUsername();
+
+		String client_token = tr.getToken();
+		
+		System.out.println("username is "+client_username);
+		System.out.println("token is "+client_token);
+
+		TokenResponse tresponse = new TokenResponse();
+	
+				
+		
+		Connection conn = FileServerDao.sqlconnect();
+		try {
+		Statement stmt=conn.createStatement();  
+			
+			ResultSet rs=stmt.executeQuery("select token,key2,key1 from users where token = '" + client_token +"' and encrypt_username = '" + client_username +"';");
+		
+		
+		if(rs.next())
+		{
+			System.out.println("REaching here");	
+			client_token = CryptoFunctions.decrypt(client_token, rs.getString(2));
+			StringTokenizer st = new StringTokenizer(client_token,";;");
+			String ds_ttl = new String();
+			String ttl = new String();
+		     while (st.hasMoreTokens()) {  
+		    	     ds_ttl = st.nextToken();  
+		     }
+		     long a = Long.parseLong(ds_ttl);
+		     System.out.println(""+a);
+		     long b = System.currentTimeMillis();
+		    
+		     if(b - a <= 300000)
+		     {
+		    	 	tresponse.setAuthstatus("Y");
+		 		tresponse.setKey1(rs.getString(3));
+		 		return tresponse.getJsonString();
+		     }
+			
+				
+		}			
+		
+		tresponse.setAuthstatus("N");
+		
+		return tresponse.getJsonString();	
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		tresponse.setAuthstatus("N");
+		return tresponse.getJsonString();
 
 
-
-
+	}	
 
 
 }

@@ -14,6 +14,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import com.sun.jersey.core.util.Base64;
 
+import sun.misc.BASE64Encoder;
+
 
 
 public class CryptoFunctions {
@@ -23,10 +25,10 @@ public class CryptoFunctions {
 
 		try {
 			
-			SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes(),"Blowfish");
+			SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes("Cp1252"),"Blowfish");
 			Cipher cipher=Cipher.getInstance("Blowfish");
 			cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
-			byte[] encrypted=cipher.doFinal(strClearText.getBytes());
+			byte[] encrypted=cipher.doFinal(strClearText.getBytes("Cp1252"));
 			strData=new String(Base64.encode(encrypted));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
@@ -38,30 +40,23 @@ public class CryptoFunctions {
 			e.printStackTrace();
 		} catch (BadPaddingException e) {
 			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return strData;
 	}
 
 	public static String decrypt(String strEncrypted,String strKey) throws UnsupportedEncodingException {
 		String strData="";
-System.out.println(strEncrypted);
-System.out.println(strKey);
+
 		try {
-			byte[] encByte= strEncrypted.getBytes();
-			strEncrypted = new String(Base64.decode(encByte));
-			System.out.println(strEncrypted.length());
-			byte[] mew = strEncrypted.getBytes();
-			
-			System.out.println(mew.length);
-			System.out.println(mew);
-			SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes("UTF-8"),"Blowfish");
-			System.out.println("hello");
+			byte[] encByte= strEncrypted.getBytes("Cp1252");
+			byte[] bytEncrypted = Base64.decode(encByte);
+			SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes("Cp1252"),"Blowfish");
 			Cipher cipher=Cipher.getInstance("Blowfish");
-			System.out.println("hello");
 			cipher.init(Cipher.DECRYPT_MODE, skeyspec);
-			System.out.println("hello");
-			byte[] decrypted=cipher.doFinal(strEncrypted.getBytes());
-			System.out.println("hello");
+			byte[] decrypted=cipher.doFinal(bytEncrypted);
 			strData=new String(decrypted);
 
 		} catch (NoSuchAlgorithmException e) {
@@ -77,14 +72,16 @@ System.out.println(strKey);
 		}
 		return strData;
 	}
-	public static Key getNewKey()  {
+	public static String getNewKey()  {
 		Key symKey=null;
+		BASE64Encoder be = new BASE64Encoder();
 		try {
 			symKey = KeyGenerator.getInstance("Blowfish").generateKey();
+			
 		}
 		catch(NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		return symKey;
+		return symKey.getEncoded().toString();
 	}
 }
