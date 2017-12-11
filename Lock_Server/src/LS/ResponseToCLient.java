@@ -6,6 +6,18 @@ import com.google.gson.GsonBuilder;
 public class ResponseToCLient {
 	String lockstatus;
 	String authstatus;
+	//0 - unlocked file successfully anyhow
+	//1 - 
+	String releaseStatus;   
+	
+
+	public String getReleaseStatus() {
+		return releaseStatus;
+	}
+
+	public void setReleaseStatus(String releaseStatus) {
+		this.releaseStatus = releaseStatus;
+	}
 
 	public String getLockstatus() {
 		return lockstatus;
