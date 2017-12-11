@@ -199,7 +199,7 @@ public class Login_Server {
 		
 		if(rs.next())
 		{
-			System.out.println("REaching here");	
+			System.out.println("Reaching here");	
 			client_token = CryptoFunctions.decrypt(client_token, rs.getString(2));
 			StringTokenizer st = new StringTokenizer(client_token,";;");
 			String ds_ttl = new String();
