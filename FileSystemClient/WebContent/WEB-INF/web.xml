@@ -1,0 +1,51 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+ 
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>LoginRequest</servlet-name>
+  	<display-name>LoginRequest</display-name>
+  	<description></description>
+  	<servlet-class>CS.LoginRequest</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ReadFile</servlet-name>
+  	<display-name>ReadFile</display-name>
+  	<description></description>
+  	<servlet-class>CS.ReadFile</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>FileWrite</servlet-name>
+  	<display-name>FileWrite</display-name>
+  	<description></description>
+  	<servlet-class>CS.FileWrite</servlet-class>
+  </servlet>
+    <servlet>
+  	<servlet-name>WriteRequest</servlet-name>
+  	<display-name>WriteRequest</display-name>
+  	<description></description>
+  	<servlet-class>CS.WriteRequest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginRequest</servlet-name>
+  	<url-pattern>/LoginRequest</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ReadFile</servlet-name>
+  	<url-pattern>/ReadFile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FileWrite</servlet-name>
+  	<url-pattern>/FileWrite</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>WriteRequest</servlet-name>
+  	<url-pattern>/WriteRequest</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+
+  
