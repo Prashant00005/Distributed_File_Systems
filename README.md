@@ -1,5 +1,5 @@
 # Distributed_File_Systems
-<>Name: Prashant Aggarwal
+Name: Prashant Aggarwal
 <br>Id: 17317559
 
 I have developed the Distributed File System in Java as <b>Web Application</b> with <b>3-key mutual authentication.</b>
