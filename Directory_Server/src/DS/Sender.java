@@ -112,13 +112,13 @@ public class Sender {
 				String query = " insert into dirservice.filelist values (?,?,?,?,?)";
 				PreparedStatement preparedStmt = conn.prepareStatement(query);
 				preparedStmt.setString (1, nameFile);
-				preparedStmt.setString (2, "http://127.0.0.1:8082/");
+				preparedStmt.setString (2, "http://127.0.0.1:8083/"); //Ip of fileserver System
 				preparedStmt.setString (3, "N");
 				preparedStmt.setString (4, "");
-				preparedStmt.setString (5, "Prashant\\");
+				preparedStmt.setString (5, "Prashant/");
 				preparedStmt.execute();
-				infoFile.put("serverurl","http://127.0.0.1:8082/");
-				infoFile.put("directory", "Prashant\\");
+				infoFile.put("serverurl","http://127.0.0.1:8083/");
+				infoFile.put("directory", "Prashant/");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -41,7 +41,7 @@ public class RequestProcessor {
 				if(reqDS.getOperation().equals("r"))
 					fileStats = send.LocationFileRequestRead(CryptoFunctions.decrypt(reqDS.getFilename(),respAS.getKey1()));
 				else
-					fileStats = send.LocationFileRequestRead(CryptoFunctions.decrypt(reqDS.getFilename(),respAS.getKey1()));
+					fileStats = send.LocationFileRequestWrite(CryptoFunctions.decrypt(reqDS.getFilename(),respAS.getKey1()));
 				if(fileStats.isEmpty()) {
 					respDS.setAuthstatus("Directory Information Not Available for the file"); 
 					getFileInfoFromDSResponseString = respDS.getJsonString();
