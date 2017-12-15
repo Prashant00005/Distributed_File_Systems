@@ -22,4 +22,5 @@ I have developed the Distributed File System in Java as <b>Web Application</b> w
   <br>When a read request is received, first checks from the Authorization Server that the token is valid or not. If token is valid, fetch the file from the server's disk and send it as a response to the client <b>(upload/download model)</b>.For the first time, if a file is not created it will send a message asking the cient to write the file first.
   <br>When a write request is received, first checks from the Authorization Server that the token is still valid or not. If yes, fetch the file from disk and send it in write mode.
          <br><br><li> <b>Lock Server </b>- When a lock request is received for a file, first checks from Authorization Server whether token is valid or not. If valid puts lock on the file in the database and sends a success response back to the client.
+  <br>When a lock release request is received, check the validity of token from Authorization Server and release the file and send a success message back to the client.
 </ul>
