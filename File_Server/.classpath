@@ -13,8 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/apache-httpcomponents-httpclient.jar"/>
-	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/apache-httpcomponents-httpcore.jar"/>
 	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/javax.jar"/>
 	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/jersey-core.jar"/>
@@ -41,5 +39,7 @@
 	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/jaxrs-ri/lib/jersey-container-servlet.jar"/>
 	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/jaxrs-ri/lib/jersey-media-jaxb.jar"/>
 	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/jaxrs-ri/lib/jersey-server.jar"/>
+	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/untitled folder/apache-httpcomponents-httpclient.jar"/>
+	<classpathentry kind="lib" path="/Users/WolfDen/Downloads/Jars/untitled folder/apache-httpcomponents-httpcore.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
