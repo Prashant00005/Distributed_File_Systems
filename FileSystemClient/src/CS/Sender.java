@@ -79,14 +79,19 @@ public class Sender {
 	}
 	
 	public String Rec_DirectoryServer_Info(String param) {
-		String url = PropertyLoader.Url_FileInfo+PropertyLoader.Url_FileInfo;
+		String url = PropertyLoader.Url_DirectoryServer+PropertyLoader.Url_FileInfo;
 		String type = "GetDirectoryInfo";
 		return connection(url,param,type);
 	}
 
 	public String LockRequest(String input) {
-		String url = PropertyLoader.Url_LockServer+PropertyLoader.Url_LockServer;
+		String url = PropertyLoader.Url_LockServer+PropertyLoader.Url_GetLock;
 		String type = "GetLock";
+		return connection(url,input,type);
+	}
+	public String WriteRequest(String input, String serverurl) {
+		String url = serverurl+ PropertyLoader.Url_File_Write;
+		String type = "WriteFile";
 		return connection(url,input,type);
 	}
 	

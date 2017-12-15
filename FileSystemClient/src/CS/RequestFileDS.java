@@ -8,7 +8,16 @@ public class RequestFileDS {
 	String token;
 	String filename;
 	String encryptedUsername;
+	String operation;
 	
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+
 	public String getToken() {
 		return token;
 	}

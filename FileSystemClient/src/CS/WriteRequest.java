@@ -37,6 +37,7 @@ public class WriteRequest extends HttpServlet {
 		reqFileDS.setFilename(CryptoFunctions.encrypt(filename, key1));
 		reqFileDS.setToken(token);
 		reqFileDS.setEncryptedUsername(usernameEnc);
+		reqFileDS.setOperation("w");
 		String infoRequestJson = reqFileDS.getJsonString();
 		String replyInfoRequest = sender.Rec_DirectoryServer_Info(infoRequestJson);
 		ResponseFileDS resp_DS = new ResponseFileDS();
@@ -69,6 +70,8 @@ public class WriteRequest extends HttpServlet {
 				request.getSession().setAttribute("status", "1");
 				request.getSession().setAttribute("filecontent", filecontent);
 				request.getSession().setAttribute("filename", filename);
+				request.getSession().setAttribute("directory", CryptoFunctions.decrypt(resp_DS.getDirectory(),key1));
+				request.getSession().setAttribute("serverurl", resp_DS.getServerurl());
 				System.out.println(filecontent);
 				request.getRequestDispatcher("OpenFile.jsp").forward(request, response);
 			}
