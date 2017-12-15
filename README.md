@@ -30,3 +30,12 @@ I have developed the Distributed File System in Java as <b>Web Application</b> w
 
 <br><b>I have also added snapshots of the web application in the master repository<b>
   <br>Encrypt_Username project is a standalone project for encryption and decryption only.
+
+# Dependencies
+<ul>
+<li>Eclipse 4.6</li>
+  <li>Apache Tomcat 9.0</li>
+  <li>MySql</li>
+  <li>Restful Jars</li>
+</ul>
+<br> <font style = "color = red">Note:</font> Used Postman application for creating requests and checking the responses.
