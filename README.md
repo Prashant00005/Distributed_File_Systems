@@ -29,3 +29,4 @@ I have developed the Distributed File System in Java as <b>Web Application</b> w
 </ul>
 
 <br><b>I have also added snapshots of the web application in the master repository<b>
+  <br>Encrypt_Username project is a standalone project for encryption and decryption only.
