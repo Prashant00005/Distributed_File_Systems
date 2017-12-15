@@ -94,6 +94,11 @@ public class Sender {
 		String type = "WriteFile";
 		return connection(url,input,type);
 	}
+	public String sendUnLockRequest(String input) {
+		String url = PropertyLoader.Url_LockServer+PropertyLoader.Url_Realease_Lock;
+		String type = "ReleaseLock";
+		return connection(url,input,type);
+	}
 	
 
 }

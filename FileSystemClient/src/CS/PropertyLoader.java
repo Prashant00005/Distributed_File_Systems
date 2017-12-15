@@ -15,6 +15,7 @@ public  class PropertyLoader {
 	public static String Url_FileInfo;
 	public static String Url_File_Write;
 	public static String cacheLimitTTL;
+	public static String Url_Realease_Lock;
 
 	public static void loadProperties() {
 		Properties config = new Properties();
@@ -41,6 +42,8 @@ public  class PropertyLoader {
 			Url_File_Write = config.getProperty("Url_File_Write");
 			
 			cacheLimitTTL = config.getProperty("cacheLimitTTL");
+			
+			Url_Realease_Lock = config.getProperty("Url_Realease_Lock");
 			
 		} catch (IOException e) {
 			System.out.println("Failed to load property file"+e);

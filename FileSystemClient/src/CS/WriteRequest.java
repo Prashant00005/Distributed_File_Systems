@@ -52,11 +52,7 @@ public class WriteRequest extends HttpServlet {
 			reqFS.setToken(token);
 			reqFS.setEncryptedUsername(usernameEnc);
 			reqFS.setDirectory(resp_DS.getDirectory());//This is also encrypted with key1
-			String jsonReadRequest = reqFS.getJsonString();
-			String readResponsereply = sender.Read_Request(jsonReadRequest,resp_DS.getServerurl());
-			ResponseFromFS resp_FS = new ResponseFromFS();
-			resp_FS = resp_FS.getClassFromJsonString(readResponsereply);
-			String filecontent = CryptoFunctions.decrypt(resp_FS.getFilecontent(),key1);
+			//To get lock first than reading the file for writing
 			RequestLockServer req_lock = new RequestLockServer();
 			req_lock.setEmail(CryptoFunctions.encrypt("abc@abc.com", key1));
 			req_lock.setFilename(CryptoFunctions.encrypt(filename, key1));
@@ -66,6 +62,28 @@ public class WriteRequest extends HttpServlet {
 			String lockResponseStr = sender.LockRequest(lockRequestStr);
 			ResponseLockServer resp_LS = new ResponseLockServer(); 
 			resp_LS = resp_LS.getClassFromJsonString(lockResponseStr);
+			
+			if(resp_LS.getLockstatus()!=null && resp_LS.getLockstatus().equalsIgnoreCase("N"))
+			{
+
+				request.getSession().setAttribute("status", "0");
+				if(resp_DS.getAuthstatus()==null)
+					resp_DS.setAuthstatus("");
+				request.getSession().setAttribute("message", "Unable to get lock on file, file is already locked");
+				request.getRequestDispatcher("OpenFile.jsp").forward(request, response);
+			}
+			
+			
+			
+			String jsonReadRequest = reqFS.getJsonString();
+			String readResponsereply = sender.Read_Request(jsonReadRequest,resp_DS.getServerurl());
+			
+			ResponseFromFS resp_FS = new ResponseFromFS();
+			resp_FS = resp_FS.getClassFromJsonString(readResponsereply);
+			
+			String filecontent = CryptoFunctions.decrypt(resp_FS.getFilecontent(),key1);
+			
+			
 			if(resp_LS.getLockstatus()!=null && resp_LS.getLockstatus().equalsIgnoreCase("Y"))	{
 				request.getSession().setAttribute("status", "1");
 				request.getSession().setAttribute("filecontent", filecontent);

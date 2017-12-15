@@ -60,6 +60,20 @@ public class FileWrite extends HttpServlet {
 			response.getWriter().append("Served at: ").append(request.getContextPath());
 			request.getRequestDispatcher("New.jsp").forward(request, response);
 		}
+		 //Client sends request to release file after write is done
+		RequestLSRelease reqRelease = new RequestLSRelease();
+		reqRelease.setEmail(CryptoFunctions.encrypt("hello@gmail.com", key1));
+		reqRelease.setFilename(CryptoFunctions.encrypt(filename, key1));
+		reqRelease.setToken(token);
+		reqRelease.setUsername(usernameEnc);
+        String lockRequestStr = reqRelease.getJsonString();
+        sender.sendUnLockRequest(lockRequestStr);
+        
+        String cache_filename = Caching.cacheFile.get(filename);
+        if(cache_filename != null) {
+        	
+        	Caching.cacheFile.put(filename, filecontent);
+        }
 
 	}
 
