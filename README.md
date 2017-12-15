@@ -27,3 +27,5 @@ I have developed the Distributed File System in Java as <b>Web Application</b> w
          <br><br><li> <b>Lock Server </b>- When a lock request is received for a file, first checks from Authorization Server whether token is valid or not. If valid puts lock on the file in the database and sends a success response back to the client.
   <br>When a lock release request is received, check the validity of token from Authorization Server and release the file and send a success message back to the client.
 </ul>
+
+<br><b>I have also added snapshots of the web application in the master repository<b>
