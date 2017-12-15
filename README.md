@@ -12,7 +12,7 @@ I have developed the Distributed File System in Java as <b>Web Application</b> w
 <li>Lock Service
 </ul>
 
-<br>I have added a Rough Sketch.jpg as a reference to showcase the movement of messages amongst differrent nodes in the distributed network. All the database queries are uploaded as .sql files in the master repository.
+<br>I have uploaded some <b><u>screenshots</u></b> of the application.<b>I have added a Rough Sketch.jpg </b> as a reference to showcase the movement of messages amongst differrent nodes in the distributed network. All the database queries are uploaded as .sql files in the master repository.
 <br>There are five nodes in the network:
 <ul>
   <li><b>Client</b> - Sends a request to Authorization Server for a secure login from the web page.This request has username and password. Both of these attributes are encrypted with password attribute for security purpose using Blowfish encryption and encoded with base64.
